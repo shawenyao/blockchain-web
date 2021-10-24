@@ -32,20 +32,12 @@ $( '#balance' ).click(function() {
 });
 
 $( '#transact' ).click(function() {
-  if( !balances ) {
-    $( '#transact_error' ).text( 'Please check your balance first.' );
-    return;
-  }
   if( !$( '#recipient' ).val() ) {
     $( '#transact_error' ).text( 'Please enter a recipient.' );
     return;
   }
   if( !$( '#amount' ).val() ) {
     $( '#transact_error' ).text( 'Please enter an amount.' );
-    return;
-  }
-  if( balances.balances[node_id] == null | $( '#amount' ).val() > balances.balances[node_id]) {
-    $( '#transact_error' ).text( 'Insufficient funds.' );
     return;
   }
   $( '#transact_error' ).text( '' );
