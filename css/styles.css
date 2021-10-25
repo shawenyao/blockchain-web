@@ -63,6 +63,25 @@ button:focus:not(:focus-visible):before {
 button:not(:disabled):active {
   transform: translateY(.125rem);
 }
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+.has-spinner.active {
+  cursor: progress;
+}
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto;
+}
+.has-spinner.btn.active .spinner {
+  min-width: 20px;
+}
 div {
   border: 2px solid #ccc;
   overflow: auto;

@@ -1,5 +1,6 @@
 $( '#blockchain' ).click(function() {
   $( '#blockchain' ).prop('disabled', true);
+  $( '#blockchain' ).buttonLoader('start');
   $( '#blockchain_response' ).text( '' );
   d3.select( 'body' ).selectAll( 'table' ).remove();
   $.getJSON( host + ':' + port + '/chain', function( data ) {
@@ -11,12 +12,14 @@ $( '#blockchain' ).click(function() {
   }).fail(function () {
     $( '#blockchain_response' ).text( 'connection error. please retry.' );
   }).always(function () {
+    $( '#blockchain' ).buttonLoader('stop');
     $( '#blockchain' ).prop('disabled', false);
   });
 });
 
 $( '#balance' ).click(function() {
   $( '#balance' ).prop('disabled', true);
+  $( '#balance' ).buttonLoader('start');
   $( '#balance_response' ).text( '' );
   $.getJSON( host + ':' + port + '/utxo', function( data ) {
     node_id = data.node_id;
@@ -27,6 +30,7 @@ $( '#balance' ).click(function() {
   }).fail(function () {
     $( '#balance_response' ).text( 'connection error. please retry.' );
   }).always(function () {
+    $( '#balance' ).buttonLoader('stop');
     $( '#balance' ).prop('disabled', false);
   });
 });
@@ -42,6 +46,7 @@ $( '#transact' ).click(function() {
   }
   $( '#transact_error' ).text( '' );
   $( '#transact' ).prop('disabled', true);
+  $( '#transact' ).buttonLoader('start');
   $( '#transact_response' ).text( '' );
   $.ajax({
     method: "POST",
@@ -55,12 +60,14 @@ $( '#transact' ).click(function() {
     }).fail(function () {
       $( '#transact_response' ).text( 'connection error. please retry.' );
     }).always(function () {
+      $( '#transact' ).buttonLoader('stop');
       $( '#transact' ).prop('disabled', false);
     });
 });
 
 $( '#pending_transactions' ).click(function() {
   $( '#pending_transactions' ).prop('disabled', true);
+  $( '#pending_transactions' ).buttonLoader('start');
   $( '#pending_transactions_response' ).text( '' );
   $.getJSON( host + ':' + port + '/transactions/pending', function( data ) {
     $( '#pending_transactions_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
@@ -69,12 +76,14 @@ $( '#pending_transactions' ).click(function() {
   }).fail(function () {
     $( '#pending_transactions_response' ).text( 'connection error. please retry.' );
   }).always(function () {
+    $( '#pending_transactions' ).buttonLoader('stop');
     $( '#pending_transactions' ).prop('disabled', false);
   });
 });
 
 $( '#mynetwork' ).click(function() {
   $( '#mynetwork' ).prop('disabled', true);
+  $( '#mynetwork' ).buttonLoader('start');
   $( '#mynetwork_response' ).text( '' );
   $.ajax({
     method: "POST",
@@ -89,12 +98,14 @@ $( '#mynetwork' ).click(function() {
     }).fail(function () {
       $( '#mynetwork_response' ).text( 'connection error. please retry.' );
     }).always(function () {
+      $( '#mynetwork' ).buttonLoader('stop');
       $( '#mynetwork' ).prop('disabled', false);
     });
 });
 
 $( '#mine' ).click(function() {
   $( '#mine' ).prop('disabled', true);
+  $( '#mine' ).buttonLoader('start');
   $( '#mine_response' ).text( '' );
   $.getJSON( host + ':' + port + '/mine', function( data ) {
     $( '#mine_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
@@ -103,12 +114,14 @@ $( '#mine' ).click(function() {
   }).fail(function () {
     $( '#mine_response' ).text( 'connection error. please retry.' );
   }).always(function () {
+    $( '#mine' ).buttonLoader('stop');
     $( '#mine' ).prop('disabled', false);
   });
 });
 
 $( '#consensus' ).click(function() {
   $( '#consensus' ).prop('disabled', true);
+  $( '#consensus' ).buttonLoader('start');
   $( '#consensus_response' ).text( '' );
   $.getJSON( host + ':' + port + '/nodes/resolve', function( data ) {
     $( '#consensus_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
@@ -117,6 +130,7 @@ $( '#consensus' ).click(function() {
   }).fail(function () {
     $( '#consensus_response' ).text( 'connection error. please retry.' );
   }).always(function () {
+    $( '#consensus' ).buttonLoader('stop');
     $( '#consensus' ).prop('disabled', false);
   });
 });
@@ -172,3 +186,28 @@ function recurse(sel) {
         .call(recurse);
     });
 }
+
+(function($) {
+  $.fn.buttonLoader = function(action) {
+    var self = $(this);
+    //start loading animation
+    if (action == 'start') {
+      // if ($(self).attr("disabled") == "disabled") {
+      //   e.preventDefault();
+      // }
+      //disable buttons when loading state
+      // $('.has-spinner').attr("disabled", "disabled");
+      $(self).attr('data-btn-text', $(self).text());
+      //binding spinner element to button and changing button text
+      $(self).html('<span class="spinner"><i class="fa fa-spinner fa-spin"></i></span> Loading');
+      $(self).addClass('active');
+    }
+    //stop loading animation
+    if (action == 'stop') {
+      $(self).html($(self).attr('data-btn-text'));
+      $(self).removeClass('active');
+      //enable buttons after finish loading
+      // $('.has-spinner').removeAttr("disabled");
+    }
+  }
+})(jQuery);
