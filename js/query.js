@@ -5,8 +5,6 @@ $( '#blockchain' ).click(function() {
   d3.select( 'body' ).selectAll( 'table' ).remove();
   $.getJSON( host + ':' + port + '/chain', function( data ) {
     node_id = data.node_id;
-    // delete the difficulty field (not necessary for information purposes)
-    data.chain.forEach(function(v){ delete v.difficulty });
     d3.select( 'body' ).selectAll( 'div' )
       .data([data.chain])
       .append( 'table' )
