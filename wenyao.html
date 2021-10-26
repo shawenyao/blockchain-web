@@ -30,9 +30,9 @@
 
 <button id='transact' class="btn btn-default has-spinner">💳 Transact</button>
 &nbsp;&nbsp;&nbsp;&nbsp;
-Recipient: <input id='recipient' type="text" size="35">
+Recipient: <input id='recipient' type='text' size='35'>
 &nbsp;&nbsp;&nbsp;&nbsp;
-Amount: <input id='amount' type="number">
+Amount: <input id='amount' type='number'>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <label id="transact_error"></label>
 <pre id='transact_response' style="height:180px;width:100%;" class="prettyprint">
@@ -47,7 +47,14 @@ Amount: <input id='amount' type="number">
 </pre>
 
 <button id='consensus' class="btn btn-default has-spinner">🤝 Consensus</button>
-<pre id='consensus_response' style="height:85px;width:100%;" class="prettyprint">
+<pre id='consensus_response' style="height:80px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='difficulty' class="btn btn-default has-spinner">💳 Update difficulty</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Difficulty: <input id='difficulty_level' type='range' value='3' min='1' max='5' step='1' size='20' oninput="difficulty_level_selected.value = difficulty_level.value">
+<output id="difficulty_level_selected">3</output>
+<pre id='difficulty_response' style="height:97px;width:100%;" class="prettyprint">
 </pre>
 
 <script>

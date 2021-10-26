@@ -52,7 +52,7 @@ $( '#transact' ).click(function() {
     method: "POST",
     contentType: "application/json",
     url: host + ':' + port + '/transactions/broadcast',
-    data: JSON.stringify({ sender: node_id, recipient: $('#recipient').val(), amount: $('#amount').val()})
+    data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val(), amount: $( '#amount' ).val()})
   }).done(function( data ) {
       $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
       $( '#transact_response' ).attr('class', 'prettyprint');
@@ -132,6 +132,22 @@ $( '#consensus' ).click(function() {
   }).always(function () {
     $( '#consensus' ).buttonLoader('stop');
     $( '#consensus' ).prop('disabled', false);
+  });
+});
+
+  $( '#difficulty' ).click(function() {
+  $( '#difficulty' ).prop('disabled', true);
+  $( '#difficulty' ).buttonLoader('start');
+  $( '#difficulty_response' ).text( '' );
+  $.getJSON( host + ':' + port + '/difficulty/broadcast?difficulty=' + $( '#difficulty_level' ).val(), function( data ) {
+    $( '#difficulty_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
+    $( '#difficulty_response' ).attr('class', 'prettyprint');
+    PR.prettyPrint();
+  }).fail(function () {
+    $( '#difficulty_response' ).text( 'connection error. please retry.' );
+  }).always(function () {
+    $( '#difficulty' ).buttonLoader('stop');
+    $( '#difficulty' ).prop('disabled', false);
   });
 });
 
