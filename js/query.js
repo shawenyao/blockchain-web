@@ -38,6 +38,7 @@ $( '#balance' ).click(function() {
 $( '#oracle' ).click(function() {
   $( '#oracle' ).prop('disabled', true);
   $( '#oracle' ).buttonLoader('start');
+  $( '#transact_response' ).text( '' );
   $.getJSON( host + ':' + port + '/oracle', function( data ) {
     $( '#amount' ).val( (1000 / data.btcprice).toFixed(8) );
   }).fail(function () {
