@@ -35,6 +35,19 @@ $( '#balance' ).click(function() {
   });
 });
 
+$( '#oracle' ).click(function() {
+  $( '#oracle' ).prop('disabled', true);
+  $( '#oracle' ).buttonLoader('start');
+  $.getJSON( host + ':' + port + '/oracle', function( data ) {
+    $( '#amount' ).val( (1000 / data.btcprice).toFixed(8) );
+  }).fail(function () {
+    $( '#transact_response' ).text( 'connection error. please retry.' );
+  }).always(function () {
+    $( '#oracle' ).buttonLoader('stop');
+    $( '#oracle' ).prop('disabled', false);
+  });
+});
+
 $( '#transact' ).click(function() {
   if( !$( '#recipient' ).val() ) {
     $( '#transact_error' ).text( 'Please enter a recipient.' );
