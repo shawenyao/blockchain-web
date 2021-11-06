@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset='utf-8'/>
-<title>HBS Chain - Wenyao</title>
+<title>HBS Chain - Elmamber Sinaga</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -13,7 +14,7 @@
 </head>
 
 <body>
-<h1>Hi, Wenyao!</h1>
+<h1>Hi, Elmamber Sinaga!</h1>
 
 <p>Welcome to the HBS chain.</p>
 
@@ -52,16 +53,18 @@ Amount: <input id='amount' type='number' onfocusout="if(this.value<=0){this.valu
 <pre id='consensus_response' style="height:80px;width:100%;" class="prettyprint">
 </pre>
 
+<!---
 <button id='difficulty' class="btn btn-default has-spinner">💪 Difficulty</button>
 &nbsp;&nbsp;&nbsp;&nbsp;
 Difficulty: <input id='difficulty_level' type='range' value='3' min='1' max='5' step='1' size='20' oninput="difficulty_level_selected.value = difficulty_level.value">
 <output id="difficulty_level_selected">3</output>
 <pre id='difficulty_response' style="height:97px;width:100%;" class="prettyprint">
 </pre>
+--->
 
 <script>
 const host = "http://hbschain.us.to"
-const port = 5041;
+const port = 5009;
 node_id = null
 </script>
 
@@ -69,3 +72,5 @@ node_id = null
 </body>
 
 </html>
+
+        
