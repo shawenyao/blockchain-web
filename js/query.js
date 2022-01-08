@@ -1,3 +1,5 @@
+const host = "https://hbschain.us.to";
+
 $( '#blockchain' ).click(function() {
   $( '#blockchain' ).prop('disabled', true);
   $( '#blockchain' ).buttonLoader('start');
