@@ -3,7 +3,7 @@ $( '#blockchain' ).click(function() {
   $( '#blockchain' ).buttonLoader('start');
   $( '#blockchain_response' ).text( '' );
   d3.select( 'body' ).selectAll( 'table' ).remove();
-  $.getJSON( host + ':' + port + '/chain', function( data ) {
+  $.getJSON( host + '/' + port + '/chain', function( data ) {
     node_id = data.node_id;
     d3.select( 'body' ).selectAll( 'div' )
       .data([data.chain])
@@ -21,7 +21,7 @@ $( '#balance' ).click(function() {
   $( '#balance' ).prop('disabled', true);
   $( '#balance' ).buttonLoader('start');
   $( '#balance_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/utxo', function( data ) {
+  $.getJSON( host + '/' + port + '/utxo', function( data ) {
     node_id = data.node_id;
     balances = data;
     $( '#balance_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
@@ -39,7 +39,7 @@ $( '#oracle' ).click(function() {
   $( '#oracle' ).prop('disabled', true);
   $( '#oracle' ).buttonLoader('start');
   $( '#transact_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/oracle', function( data ) {
+  $.getJSON( host + '/' + port + '/oracle', function( data ) {
     $( '#amount' ).val( (1000 / data.btcprice).toFixed(8) );
   }).fail(function () {
     $( '#transact_response' ).text( 'connection error. please retry.' );
@@ -65,7 +65,7 @@ $( '#transact' ).click(function() {
   $.ajax({
     method: "POST",
     contentType: "application/json",
-    url: host + ':' + port + '/transactions/broadcast',
+    url: host + '/' + port + '/transactions/broadcast',
     data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val(), amount: $( '#amount' ).val()})
   }).done(function( data ) {
       $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
@@ -83,7 +83,7 @@ $( '#pending_transactions' ).click(function() {
   $( '#pending_transactions' ).prop('disabled', true);
   $( '#pending_transactions' ).buttonLoader('start');
   $( '#pending_transactions_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/transactions/pending', function( data ) {
+  $.getJSON( host + '/' + port + '/transactions/pending', function( data ) {
     $( '#pending_transactions_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
     $( '#pending_transactions_response' ).attr('class', 'prettyprint');
     PR.prettyPrint();
@@ -102,7 +102,7 @@ $( '#mynetwork' ).click(function() {
   $.ajax({
     method: "POST",
     contentType: "application/json",
-    url: host + ':' + port + '/nodes/register',
+    url: host + '/' + port + '/nodes/register',
     data: JSON.stringify({ nodes: [] })
   })
     .done(function( data ) {
@@ -121,7 +121,7 @@ $( '#mine' ).click(function() {
   $( '#mine' ).prop('disabled', true);
   $( '#mine' ).buttonLoader('start');
   $( '#mine_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/mine', function( data ) {
+  $.getJSON( host + '/' + port + '/mine', function( data ) {
     $( '#mine_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
     $( '#mine_response' ).attr('class', 'prettyprint');
     PR.prettyPrint();
@@ -137,7 +137,7 @@ $( '#consensus' ).click(function() {
   $( '#consensus' ).prop('disabled', true);
   $( '#consensus' ).buttonLoader('start');
   $( '#consensus_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/nodes/resolve', function( data ) {
+  $.getJSON( host + '/' + port + '/nodes/resolve', function( data ) {
     $( '#consensus_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
     $( '#consensus_response' ).attr('class', 'prettyprint');
     PR.prettyPrint();
@@ -153,7 +153,7 @@ $( '#consensus' ).click(function() {
   $( '#difficulty' ).prop('disabled', true);
   $( '#difficulty' ).buttonLoader('start');
   $( '#difficulty_response' ).text( '' );
-  $.getJSON( host + ':' + port + '/difficulty/broadcast?difficulty=' + $( '#difficulty_level' ).val(), function( data ) {
+  $.getJSON( host + '/' + port + '/difficulty/broadcast?difficulty=' + $( '#difficulty_level' ).val(), function( data ) {
     $( '#difficulty_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
     $( '#difficulty_response' ).attr('class', 'prettyprint');
     PR.prettyPrint();
