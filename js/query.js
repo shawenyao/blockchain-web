@@ -68,7 +68,7 @@ $( '#transact' ).click(function() {
     method: "POST",
     contentType: "application/json",
     url: host + '/' + port + '/transactions/broadcast',
-    data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val(), amount: $( '#amount' ).val()})
+    data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val().toLowerCase(), amount: $( '#amount' ).val()})
   }).done(function( data ) {
       $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
       $( '#transact_response' ).attr('class', 'prettyprint');
