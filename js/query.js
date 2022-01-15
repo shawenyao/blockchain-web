@@ -1,4 +1,4 @@
-const host = "https://hbschain.us.to";
+const host = "https://" + location.host + location.port;
 
 $( '#blockchain' ).click(function() {
   $( '#blockchain' ).prop('disabled', true);
