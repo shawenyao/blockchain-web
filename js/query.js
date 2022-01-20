@@ -69,23 +69,40 @@ $( '#transact' ).click(function() {
       node_id = data.node_id;
     }).fail(function () {
       $( '#transact_response' ).text( 'connection error. please retry.' );
+    }).done(function () {
+      $.ajax({
+        method: "POST",
+        contentType: "application/json",
+        url: host + '/' + port + '/transactions/broadcast',
+        data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val().toLowerCase(), amount: $( '#amount' ).val()})
+      }).done(function( data ) {
+          $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
+          $( '#transact_response' ).attr('class', 'prettyprint');
+          PR.prettyPrint();
+        }).fail(function () {
+          $( '#transact_response' ).text( 'connection error. please retry.' );
+        }).always(function () {
+          $( '#transact' ).buttonLoader('stop');
+          $( '#transact' ).prop('disabled', false);
+        });
     });
+  }else{
+    $.ajax({
+      method: "POST",
+      contentType: "application/json",
+      url: host + '/' + port + '/transactions/broadcast',
+      data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val().toLowerCase(), amount: $( '#amount' ).val()})
+    }).done(function( data ) {
+        $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
+        $( '#transact_response' ).attr('class', 'prettyprint');
+        PR.prettyPrint();
+      }).fail(function () {
+        $( '#transact_response' ).text( 'connection error. please retry.' );
+      }).always(function () {
+        $( '#transact' ).buttonLoader('stop');
+        $( '#transact' ).prop('disabled', false);
+      });
   }
-  $.ajax({
-    method: "POST",
-    contentType: "application/json",
-    url: host + '/' + port + '/transactions/broadcast',
-    data: JSON.stringify({ sender: node_id, recipient: $( '#recipient' ).val().toLowerCase(), amount: $( '#amount' ).val()})
-  }).done(function( data ) {
-      $( '#transact_response' ).text( JSON.stringify(data, null, 4).replace(/"(\w+)"\s*:/g, '$1:') );
-      $( '#transact_response' ).attr('class', 'prettyprint');
-      PR.prettyPrint();
-    }).fail(function () {
-      $( '#transact_response' ).text( 'connection error. please retry.' );
-    }).always(function () {
-      $( '#transact' ).buttonLoader('stop');
-      $( '#transact' ).prop('disabled', false);
-    });
 });
 
 $( '#pending_transactions' ).click(function() {
