@@ -85,6 +85,9 @@ $( '#transact' ).click(function() {
           $( '#transact' ).buttonLoader('stop');
           $( '#transact' ).prop('disabled', false);
         });
+    }).always(function () {
+      $( '#transact' ).buttonLoader('stop');
+      $( '#transact' ).prop('disabled', false);
     });
   }else{
     $.ajax({
