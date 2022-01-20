@@ -64,6 +64,13 @@ $( '#transact' ).click(function() {
   $( '#transact' ).prop('disabled', true);
   $( '#transact' ).buttonLoader('start');
   $( '#transact_response' ).text( '' );
+  if(node_id === null){
+    $.getJSON( host + '/' + port + '/id', function( data ) {
+      node_id = data.node_id;
+    }).fail(function () {
+      $( '#transact_response' ).text( 'connection error. please retry.' );
+    });
+  }
   $.ajax({
     method: "POST",
     contentType: "application/json",
