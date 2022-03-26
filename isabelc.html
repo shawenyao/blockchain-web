@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset='utf-8'/>
+<title>HBS Chain - Isabel C</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<link rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<h1>Hi, Isabel C!</h1>
+
+<p>Welcome to the HBS chain.</p>
+
+<button id='blockchain' class="btn btn-default has-spinner">🌕 Blockchain</button>
+<div id='blockchain_response' style="height:600px;width:100%"></div>
+
+<button id='mine' class="btn btn-default has-spinner">⛏️ Mine</button>
+<pre id='mine_response' style="height:115px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='balance' class="btn btn-default has-spinner">🧾 Check balances</button>
+<pre id='balance_response' style="height:200px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='transact' class="btn btn-default has-spinner">💳 Transact</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Recipient: <input id='recipient' type='text'>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Amount: <input id='amount' type='number' onfocusout="if(this.value<=0){this.value=0.0001}">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<button id='oracle' class="btn btn-default has-spinner">💵 $1000</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label id="transact_error"></label>
+<pre id='transact_response' style="height:180px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='pending_transactions' class="btn btn-default has-spinner">⏳ Pending transactions</button>
+<pre id='pending_transactions_response' style="height:210px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='mynetwork' class="btn btn-default has-spinner">🌐 My network</button>
+<pre id='mynetwork_response' style="height:200px;width:100%;" class="prettyprint">
+</pre>
+
+<button id='consensus' class="btn btn-default has-spinner">🤝 Consensus</button>
+<pre id='consensus_response' style="height:80px;width:100%;" class="prettyprint">
+</pre>
+
+<!---
+<button id='difficulty' class="btn btn-default has-spinner">💪 Difficulty</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Difficulty: <input id='difficulty_level' type='range' value='3' min='1' max='5' step='1' size='20' oninput="difficulty_level_selected.value = difficulty_level.value">
+<output id="difficulty_level_selected">3</output>
+<pre id='difficulty_response' style="height:97px;width:100%;" class="prettyprint">
+</pre>
+--->
+
+<script src="js/query.js"></script>
+
+<script>
+const port = 5052;
+node_id = null;
+</script>
+
+</body>
+
+</html>
